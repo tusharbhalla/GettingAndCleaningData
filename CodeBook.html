@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Getting and Cleaning Data Assignment 1</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Getting and Cleaning Data Assignment 1</h1>
+
+<h2>Datasets</h2>
+
+<p>This dataset is derived from the &ldquo;Human Activity Recognition Using Smartphones Data Set&rdquo; which was originally made avaiable here:</p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a> </p>
+
+<p>Here is the data for the project: </p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a></p>
+
+<p>The following files have been used for the Test and Train data :</p>
+
+<ol>
+<li>Test Data is available in - &ldquo;X_test&rdquo;, &ldquo;y_test&rdquo;, &ldquo;subject_test&rdquo; files</li>
+<li>Train Data is available in - &ldquo;X_train&rdquo;, &ldquo;y_train&rdquo;, &ldquo;subject_train&rdquo; files</li>
+<li>Activity Labels are available in &ldquo;activity_labels&rdquo; file</li>
+<li>Features are available in &ldquo;features&rdquo; file</li>
+</ol>
+
+<h3>Variables -</h3>
+
+<h4>Guideline for interpreting variables:</h4>
+
+<ol>
+<li>Variables prefixed with t - Represent Time domain signals</li>
+<li>Variable prefixed with f - Represent Frequency domain signals</li>
+<li>Variables suffixed with -XYZ - Represent 3-axial signals in X, Y, Z direction</li>
+<li>mean - Mean value</li>
+<li>std - Standard deviation</li>
+<li>mad - Median absolute deviation </li>
+<li>max - Largest value in array</li>
+<li>min - Smallest value in array</li>
+<li>sma - Signal magnitude area</li>
+<li>energy - Energy measure. Sum of the squares divided by the number of values. </li>
+<li>iqr - Interquartile range </li>
+<li>entropy - Signal entropy</li>
+<li>arCoeff - Autorregresion coefficients with Burg order equal to 4</li>
+<li>correlation - correlation coefficient between two signals</li>
+<li>maxInds - index of the frequency component with largest magnitude</li>
+<li>meanFreq - Weighted average of the frequency components to obtain a mean frequency</li>
+<li>skewness - skewness of the frequency domain signal </li>
+<li>kurtosis - kurtosis of the frequency domain signal </li>
+<li>bandsEnergy - Energy of a frequency interval within the 64 bins of the FFT of each window.</li>
+<li>angle - Angle between two vectors.</li>
+</ol>
+
+<h4>Names of variables (Only variables with Mean and Standard Deviation measures are relevant) -</h4>
+
+<h4>Mean relevant variables -</h4>
+
+<ul>
+<li>tBodyAccmeanX </li>
+<li>tBodyAccmeanY </li>
+<li>tBodyAccmeanZ </li>
+<li>tGravityAccmeanX </li>
+<li>tGravityAccmeanY </li>
+<li>tGravityAccmeanZ </li>
+<li>tBodyAccJerkmeanX </li>
+<li>tBodyAccJerkmeanY </li>
+<li>tBodyAccJerkmeanZ </li>
+<li>tBodyGyromeanX </li>
+<li>tBodyGyromeanY </li>
+<li>tBodyGyromeanZ </li>
+<li>tBodyGyroJerkmeanX </li>
+<li>tBodyGyroJerkmeanY </li>
+<li>tBodyGyroJerkmeanZ </li>
+<li>tBodyAccMagmean </li>
+<li>tGravityAccMagmean </li>
+<li>tBodyAccJerkMagmean </li>
+<li>tBodyGyroMagmean </li>
+<li>tBodyGyroJerkMagmean </li>
+<li>fBodyAccmeanX </li>
+<li>fBodyAccmeanY </li>
+<li>fBodyAccmeanZ </li>
+<li>fBodyAccmeanFreqX </li>
+<li>fBodyAccmeanFreqY </li>
+<li>fBodyAccmeanFreqZ </li>
+<li>fBodyAccJerkmeanX </li>
+<li>fBodyAccJerkmeanY </li>
+<li>fBodyAccJerkmeanZ </li>
+<li>fBodyAccJerkmeanFreqX </li>
+<li>fBodyAccJerkmeanFreqY </li>
+<li>fBodyAccJerkmeanFreqZ </li>
+<li>fBodyGyromeanX </li>
+<li>fBodyGyromeanY </li>
+<li>fBodyGyromeanZ </li>
+<li>fBodyGyromeanFreqX </li>
+<li>fBodyGyromeanFreqY </li>
+<li>fBodyGyromeanFreqZ </li>
+<li>fBodyAccMagmean </li>
+<li>fBodyAccMagmeanFreq </li>
+<li>fBodyBodyAccJerkMagmean </li>
+<li>fBodyBodyAccJerkMagmeanFreq </li>
+<li>fBodyBodyGyroMagmean </li>
+<li>fBodyBodyGyroMagmeanFreq </li>
+<li>fBodyBodyGyroJerkMagmean </li>
+<li>fBodyBodyGyroJerkMagmeanFreq </li>
+<li>angletBodyAccMeangravity </li>
+<li>angletBodyAccJerkMeangravityMean </li>
+<li>angletBodyGyroMeangravityMean </li>
+<li>angletBodyGyroJerkMeangravityMean </li>
+<li>angleXgravityMean </li>
+<li>angleYgravityMean </li>
+<li>angleZgravityMean </li>
+</ul>
+
+<h3>std relevant Variables -</h3>
+
+<ul>
+<li>tBodyAccstdX </li>
+<li>tBodyAccstdY </li>
+<li>tBodyAccstdZ </li>
+<li>tGravityAccstdX </li>
+<li>tGravityAccstdY </li>
+<li>tGravityAccstdZ </li>
+<li>tBodyAccJerkstdX </li>
+<li>tBodyAccJerkstdY </li>
+<li>tBodyAccJerkstdZ </li>
+<li>tBodyGyrostdX </li>
+<li>tBodyGyrostdY </li>
+<li>tBodyGyrostdZ </li>
+<li>tBodyGyroJerkstdX </li>
+<li>tBodyGyroJerkstdY </li>
+<li>tBodyGyroJerkstdZ </li>
+<li>tBodyAccMagstd </li>
+<li>tGravityAccMagstd </li>
+<li>tBodyAccJerkMagstd </li>
+<li>tBodyGyroMagstd </li>
+<li>tBodyGyroJerkMagstd </li>
+<li>fBodyAccstdX </li>
+<li>fBodyAccstdY </li>
+<li>fBodyAccstdZ </li>
+<li>fBodyAccJerkstdX </li>
+<li>fBodyAccJerkstdY </li>
+<li>fBodyAccJerkstdZ </li>
+<li>fBodyGyrostdX </li>
+<li>fBodyGyrostdY </li>
+<li>fBodyGyrostdZ </li>
+<li>fBodyAccMagstd </li>
+<li>fBodyBodyAccJerkMagstd </li>
+<li>fBodyBodyGyroMagstd </li>
+<li>fBodyBodyGyroJerkMagstd</li>
+</ul>
+
+<h3>Transformation -</h3>
+
+<ol>
+<li>Data sets specified above are read using read.csv function. Data was downloaded from the source as specified above</li>
+<li>To get benefited out of efficiency and speed of a data table, all data frames are converted into data table using data.table()</li>
+<li>To create a single data set for all the data, following steps are performed -
+3.1 Train data set is formed by combining training relevant sets columnwise (i.e. X_train, subject_train, y_train) [yields 7352 By 563 data set]
+3.2 Test data set is formed by combining test relevant sets columnwise (i.e. X_test, subject_test, y_test) [yields 2947 By 563 data set]
+3.3 A single unified data set is formed by combining data sets created in step 3.1 and 3.2 [yields 10299 By 563 data set]</li>
+<li>To extract only the measurements on mean and standard deviations, script first obtain the indexes of such features from feature vector and then subsets only
+those columns from Train and Test dataset </li>
+<li>To assign descriptive activity names, script creates a character vector of activity descriptions and assigns it as a levels to y_train and y_test data 
+sets</li>
+<li>Feature names are assigned as column headers to a data set created as a result of Step 4 above</li>
+<li>Finally, second independent tidy data set with the average of each variable by activity and subject has been created and saved to a disk [yields 180 By 68 data set]</li>
+<li>The data set written in Step 7 above is tidy for following reasons -
+8.1 Each row represents a single observation. That is, observation based on Activity and Subject
+8.2 Each column represents value of a single variable
+8.3 Entire dataset represents a single context (or experimental unit), in this case Human Activity Recognition using Smartphones experiment data set</li>
+</ol>
+
+</body>
+
+</html>
+
